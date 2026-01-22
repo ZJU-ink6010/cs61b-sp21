@@ -121,6 +121,7 @@ public class Board implements Iterable<Tile> {
         return out.toString();
     }
 
+
     /** Iterates through teach tile in the board. */
     private class AllTileIterator implements Iterator<Tile>, Iterable<Tile> {
         int r, c;
