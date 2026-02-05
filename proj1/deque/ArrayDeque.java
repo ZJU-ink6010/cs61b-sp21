@@ -1,12 +1,12 @@
 package deque;
 
-import java.lang.reflect.Array;
+
 
 public class ArrayDeque<T> {
     private T[] array;
     private int size;
-    private int nextFirst = 4;
-    private int nextLast = 5;
+    private int nextFirst = 3;
+    private int nextLast = 4;
 
     public ArrayDeque(){
         array = (T[]) new Object[8];
@@ -15,10 +15,11 @@ public class ArrayDeque<T> {
     public void resizing(int newSize){
         T[] newArray = (T[]) new Object[newSize];
         int del = newSize - size;
-        System.arraycopy(array,0,newArray,0,nextLast);
-        System.arraycopy(array,nextFirst+1,newArray,nextFirst+1+del,size-nextFirst-1);
+        System.arraycopy(array,nextFirst+1,newArray,0,size-nextFirst-1);
+        System.arraycopy(array,0,newArray,size-nextFirst-1,nextFirst+1);
         array = newArray;
-        nextFirst = nextFirst+del;
+        nextLast = size;
+        nextFirst = newSize-1;
      }
     public void addFirst(T input){
         if (size == array.length){
@@ -63,6 +64,7 @@ public class ArrayDeque<T> {
     public void printDeque(){
         for(int i =0;i<size;i++){
             System.out.print(array[i]);
+            System.out.print(' ');
         }
         System.out.println();
 
@@ -90,9 +92,9 @@ public class ArrayDeque<T> {
         if(size > 0){
             T retValue;
             if(nextLast == 0){
-                retValue = array[size-1];
+                retValue = array[array.length-1];
                 size--;
-                nextFirst = size-1;
+                nextLast = array.length-1;
             }else{
                 retValue = array[nextLast-1];
                 size--;
@@ -106,7 +108,13 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index){
-        return array[index];
+        if(index <= size-1){
+            return array[index];
+        }else{
+            return null;
+        }
+
+
     }
 
 

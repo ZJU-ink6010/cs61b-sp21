@@ -66,6 +66,7 @@ public class LinkedListDeque<T> {
         stuffNode node = sentinelNode.next;
         while(node!=sentinelNode){
             System.out.print(node.item);
+            System.out.print(' ');
             node = node.next;
         }
         System.out.println();

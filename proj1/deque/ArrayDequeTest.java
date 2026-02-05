@@ -1,5 +1,7 @@
 package deque;
 
+import edu.princeton.cs.algs4.StdRandom;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -38,7 +40,6 @@ public class ArrayDequeTest {
     @Test
     /** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
     public void addRemoveTest() {
-
 
 
         ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
@@ -82,8 +83,8 @@ public class ArrayDequeTest {
     public void multipleParamTest() {
 
 
-        ArrayDeque<String>  lld1 = new ArrayDeque<String>();
-        ArrayDeque<Double>  lld2 = new ArrayDeque<Double>();
+        ArrayDeque<String> lld1 = new ArrayDeque<String>();
+        ArrayDeque<Double> lld2 = new ArrayDeque<Double>();
         ArrayDeque<Boolean> lld3 = new ArrayDeque<Boolean>();
 
         lld1.addFirst("string");
@@ -128,7 +129,75 @@ public class ArrayDequeTest {
         for (double i = 999999; i > 500000; i--) {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
-
-
     }
-}
+
+    @Test
+    public void randomizedTest() {
+        LinkedListDeque<Integer> L = new LinkedListDeque<>();
+        ArrayDeque<Integer> L2 = new ArrayDeque<>();
+        int N = 5000;
+        for (int i = 0; i < N; i += 1) {
+            int operationNumber = StdRandom.uniform(0, 4);
+                if (operationNumber == 0) {
+                    // addLast
+                    int randVal = StdRandom.uniform(0, 100);
+                    L.addLast(randVal);
+                    L2.addLast(randVal);
+                    System.out.println("L.addLast(" + randVal + ")");
+                    System.out.println("L2.addLast(" + randVal + ")");
+                } else if (operationNumber == 1) {
+                    // size
+                    int size = L.size();
+                    System.out.println("L.size: " + size);
+                    int size2 = L2.size();
+                    System.out.println("L2.size: " + size2);
+                    if (size != size2) {
+                        System.out.println("size error!");
+                        break;
+                    }
+                } else if (operationNumber == 2) {
+                    // addfirst
+                    int randVal = StdRandom.uniform(0, 100);
+                    L.addFirst(randVal);
+                    L2.addFirst(randVal);
+                    System.out.println("L:addFirst(" + randVal + ")");
+                    System.out.println("L2:addFirst(" + randVal + ")");
+
+                } else if (operationNumber == 3) {
+                    // removeLast
+                    if(L.size() > 0) {
+                        int prevLast1 = L.removeLast();
+                        System.out.println("L:removeLast: " + prevLast1);
+
+
+                        int prevLast2 = L2.removeLast();
+                        System.out.println("L2:removeLast: " + prevLast2);
+
+                        if (prevLast1 != prevLast2) {
+                            System.out.println("removeLast error!");
+                            L.printDeque();
+                            L2.printDeque();
+                            break;
+                        }
+                    }
+                }
+                else if (operationNumber == 4) {
+                    // removeFirst
+                    if(L.size() > 0 ) {
+                        int prevFirst1 = L.removeFirst();
+                        System.out.println("L:removeLast: " + prevFirst1);
+                        int prevFirst2 = L2.removeFirst();
+                        System.out.println("L2:removeLast: " + prevFirst2);
+
+                        if (prevFirst1 != prevFirst2) {
+                            System.out.println("removeFirst error!");
+                            L.printDeque();
+                            L2.printDeque();
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
