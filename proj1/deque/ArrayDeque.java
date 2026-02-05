@@ -5,8 +5,8 @@ package deque;
 public class ArrayDeque<T> {
     private T[] array;
     private int size;
-    private int nextFirst = 3;
-    private int nextLast = 4;
+    private int nextFirst = 0;
+    private int nextLast = 1;
 
     public ArrayDeque(){
         array = (T[]) new Object[8];

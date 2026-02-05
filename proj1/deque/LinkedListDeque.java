@@ -119,8 +119,6 @@ public class LinkedListDeque<T> {
                 return (T)node.item;
             }
 
-
-
         }else{
             return null;
         }
